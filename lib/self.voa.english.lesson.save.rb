@@ -19,12 +19,8 @@ BEGIN {
 $line = $_.force_encoding('UTF-8')
 
 if sections.keys.include?($line.strip)
-  if tmp = sections.keys.detect{|k| k == $line.strip}
-    section_current = tmp
-    section_in = true
-  else
-    section_in = false
-  end
+  section_current = $line.strip
+  section_in = true
 elsif $line.match(%r{^[A-Z]})
   section_in = false
 else
