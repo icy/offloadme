@@ -43,6 +43,7 @@ END {
   }.sort.uniq
   sections.each do |key, data|
     file_name = File.join(ENV["D_LESSON"], "#{key.downcase.gsub(" ", "_")}.txt")
+    STDERR.puts ":: Writting new file #{file_name}"
     File.open(file_name, "w") do |f|
       f.puts data
     end
