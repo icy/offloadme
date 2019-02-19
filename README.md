@@ -1,7 +1,7 @@
 ## Download learning resources and use them later
 
 Mobile data is too expensive. Kind of `€10 - 15` for 5GB? Well, if you
-don't mind people collecting [Pfand bottle for their dinner](https://en.wikipedia.org/wiki/Container-deposit_legislation#Germany)
+don't mind people collecting [Pfand bottles for their dinner](https://en.wikipedia.org/wiki/Container-deposit_legislation#Germany).
 
 ### voa.english
 
