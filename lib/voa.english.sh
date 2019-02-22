@@ -25,7 +25,11 @@ self.voa.english.lesson.save() {
     ruby -n \
       "$(dirname "${BASH_SOURCE[0]:-.}")/${FUNCNAME[0]}.rb"
 
-  ( cd "$D_LESSON" && wget -c $(cat links.txt); )
+  (
+    cd "$D_LESSON" || exit 1
+    echo "# Lesson URL: $1" >> links.txt
+    wget -cb $(grep -v '^#' links.txt)
+  )
 }
 
 self.test() {

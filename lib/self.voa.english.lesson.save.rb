@@ -29,14 +29,35 @@ end
 
 END {
   require 'yaml'
+
+  def url_key(url)
+    url.gsub(%r{(_((mobile)|(fullhd)|(hq)))?\.mp[34]$}, '')
+  end
+
   links_data = sections.delete("References")
-  conversation = sections.delete("(BUTTON) Pop-out player")
-  sections["conversation"] = conversation
+  sections["conversation"] = sections.delete("(BUTTON) Pop-out player")
+  links_cnts = {}
   sections["links"] = links_data.select{|l|
-    l.match(%r{mp[34]}) and not l.match("fullhd")
+    l.match(%r{mp[34](\?download=1)?$})
   }.map{|t|
     t.strip.split(" ").last.gsub("?download=1", "")
-  }.sort.uniq
+  }.sort.uniq.select{|l|
+    if l.match(%r{mp[34]$})
+      key = url_key(l)
+      links_cnts[key] ||= 0
+      links_cnts[key] += 1
+      true
+    else
+      false
+    end
+  }.map{|t|
+    key = url_key(t)
+    if links_cnts[key] == 1
+      t
+    else
+      t.match("_hq\.mp[34]") ? t : "# #{t}"
+    end
+  }
   sections.each do |key, data|
     file_name = File.join(ENV["D_LESSON"], "#{key.downcase.gsub(" ", "_")}.txt")
     STDERR.puts ":: Writting new file #{file_name}"
