@@ -28,7 +28,7 @@ self.voa.english.lesson.save() {
   (
     cd "$D_LESSON" || exit 1
     echo "# Lesson URL: $1" >> links.txt
-    wget -cb $(grep -v '^#' links.txt)
+    wget -c $(grep -v '^#' links.txt)
   )
 }
 
